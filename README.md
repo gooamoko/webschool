@@ -1,4 +1,9 @@
-Simple Play web-application
+Информационная система автоматизации учебного процесса техникума.
 =====================================
 
-This file will be packaged with your application, when using `play dist`.
+Реализована с использованием Play 2.2.x Framework
+
+Для корректной работы с исходниками в Eclipse выполните следующее
+1. Запустите консоль play.
+2. Выполните последовательно команды clean, compile, eclipse.
+3. Импортируйте проект в Eclipse.
