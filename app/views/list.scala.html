@@ -1,0 +1,18 @@
+@(itemList: List[models.entities.Card]) 
+
+@main("Вот что было импортировано...") { 
+	
+	@if(itemList != null) {
+		@for(item <- itemList) {
+			<p>Личная карточка. <br/>
+			@if(item.getPerson() != null) {Персона: @item.getPerson().getFullName().<br/>}
+			@if(item.getSpeciality() != null) {Специальность: @item.getSpeciality().getFullName().<br/>}
+			@if(item.getSchool() != null) {Образовательное учреждение: @item.getSchool().name.<br/>}
+			@if(item.getFinalMarks() != null) {итоговых оценок в личной карточке: @item.getFinalMarks().size().<br/>}
+			@if(item.getCourseWorkMarks() != null) {оценок за курсовые в личной карточке: @item.getCourseWorkMarks().size().<br/>}
+			@if(item.getPracticMarks() != null) {оценок за практику в личной карточке: @item.getPracticMarks().size().<br/>}
+			@if(item.getGosMarks() != null) {оценок за ГОСы в личной карточке: @item.getGosMarks().size().<br/>}
+			</p>
+		}
+	} 
+}

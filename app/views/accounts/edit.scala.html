@@ -1,0 +1,46 @@
+@(ac: models.entities.Account)
+
+@main("Учетная запись") {
+<form id="accountForm" action="@routes.Accounts.save(ac.getId())" method="POST">
+	<dl>
+    <dt><label for="login">Логин</label></dt>
+    <dd><input type="text" id="login" name="login" value="@ac.login"></dd>
+	</dl>
+	<dl id="descriptionField">
+    <dt><label for="description">Описание</label></dt>
+    <dd><input type="text" name="description" id="description"  value="@ac.description"></dd>
+	</dl>
+	<dl>
+    <dt><label for="role">Роль</label></dt>
+    <dd>
+			<select name="role" id="role">
+    		@for((value, text) <- ac.getRoles()) {
+      		<option @if(value.contentEquals(ac.role + "")){selected} value="@value"> @text </option>
+    		}
+			</select>
+		</dd>
+	</dl>
+	<dl>
+    <dt><label for="password">Пароль</label></dt>
+    <dd><input type="password" name="password" id="password"></dd>
+    @if(ac.getId() > 0) {
+    <dd class="info">
+			Оставьте пустым, если не хотите менять пароль
+    </dd>
+    }
+	</dl>
+	<dl>
+    <dt><label for="confirm">Подтверждение пароля</label></dt>
+    <dd><input type="password" name="confirm" id="confirm"></dd>
+    @if(ac.getId() > 0) {
+    <dd class="info">
+			Оставьте пустым, если не хотите менять пароль
+    </dd>
+    }
+	</dl>
+	<dl>
+		<input type="submit" value="Сохранить">
+		<a class="button" href="@routes.Accounts.index()">Отмена</a>
+	</dl>
+</form>
+}

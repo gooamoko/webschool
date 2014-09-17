@@ -1,0 +1,40 @@
+@(item: models.entities.Person) 
+@main("Персона") {
+<p>
+<table>
+	<tbody>
+		<tr>
+			<td class="label">Фамилия</td>
+			<td class="value">@item.firstName</td>
+		</tr>
+		<tr>
+			<td class="label">Имя</td>
+			<td class="value">@item.middleName</td>
+		</tr>
+		<tr>
+			<td class="label">Отчество</td>
+			<td class="value">@item.lastName</td>
+		</tr>
+		<tr>
+			<td class="label">Дата рождения</td>
+			<td class="value">@item.getBirthDateString()</td>
+		</tr>
+		<tr>
+			<td class="label">Место рождения</td>
+			<td class="value">@item.birthPlace</td>
+		</tr>
+		<tr>
+			<td class="label">Пол</td>
+			<td class="value">@item.getGender()</td>
+		</tr>
+		<tr>
+			<td class="label">Гражданство</td>
+			<td class="value">@item.getCitizenship()</td>
+		</tr>
+	</tbody>
+</table>
+</p>
+<a class="button" href="@routes.Cards.index(item.getId())">Личные карточки</a>
+<a class="button" href="@routes.Persons.index()">Закрыть</a>
+<a class="button" href="@routes.Persons.edit(item.getId())">Изменить</a>
+}

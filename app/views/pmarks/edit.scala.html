@@ -1,0 +1,23 @@
+@(itemForm: play.data.Form[models.entities.PracticMark], card: models.entities.Card, id: Int)
+
+@import helper._
+
+@main("Оценка за практику") {
+	
+	<div class="roundbox" id="breadcrumb">
+		<a href="@routes.Persons.index()">Персоны</a> &gt;
+		<a href="@routes.Persons.details(card.getPerson().getId())">@card.getPerson().getFullName()</a> &gt;
+		<a href="@routes.Cards.details(card.getPerson().getId(), card.getId())">@card.getTitle()</a>
+	</div>
+	
+	@form(action = routes.PracticMarks.save(card.getPerson().getId(), card.getId(), id)) {
+	@select(itemForm("prcCode"), 
+		options(models.Utils.practics()), '_label -> "Практика")
+	@inputText(itemForm("length"), '_label -> "Срок, недель")
+	@select(itemForm("mark"), 
+		options("3"->"Удовлетворительно", "4"->"Хорошо", "5"->"Отлично"),
+		'_label -> "Оценка")
+	<input type="submit" class="form-submit" value="Сохранить">
+	<a class="button" href="@routes.PracticMarks.index(card.getPerson().getId(), card.getId())">Отмена</a>
+	}
+}

@@ -1,0 +1,13 @@
+@(itemForm: play.data.Form[models.entities.Department], id: Int)
+
+@import helper._
+
+@main("Отделение") {
+	@form(action = routes.Departments.save(id)) {
+	@inputText(itemForm("name"),'_label -> "Наименование")
+	@inputText(itemForm("boss"),'_label -> "Зав. отделением")
+	@inputText(itemForm("secretar"),'_label -> "Секретарь")
+	<input type="submit" class="form-submit" value="Сохранить">
+	<a class="button" href="@routes.Departments.index()">Отмена</a>
+	}
+}

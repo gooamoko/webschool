@@ -1,0 +1,11 @@
+@(practicForm: play.data.Form[models.entities.Practic], id: Int)
+
+@import helper._
+
+@main("Практика") {
+	@form(action = routes.Practics.save(id)) {
+	@inputText(practicForm("name"),'_label -> "Наименование")
+	<input type="submit" class="form-submit" value="Сохранить">
+	<a class="button" href="@routes.Practics.index()">Отмена</a>
+	}
+}

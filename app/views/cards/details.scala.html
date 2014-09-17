@@ -1,0 +1,156 @@
+@(item: models.entities.Card) 
+@main("Личная карточка") {
+<div class="roundbox" id="breadcrumb">
+	<a href="@routes.Persons.index()">Персоны</a> &gt;
+	<a href="@routes.Persons.details(item.getPerson().getId())">@item.getPerson().getFullName()</a>
+</div>
+
+@buttons
+<p>
+	<div>
+		<table>
+			<tbody>
+				<tr>
+					<td colspan="2" class="title">Информация об учебном заведении</td>
+				</tr>
+				<tr>
+					<td class="label">Наименование</td>
+					<td class="value">@item.getSchool().name</td>
+				</tr>
+				<tr>
+					<td class="label">Населенный пункт</td>
+					<td class="value">@item.getSchool().place</td>
+				</tr>
+				<tr>
+					<td class="label">Руководитель</td>
+					<td class="value">@item.getSchool().director</td>
+				</tr>
+				<tr>
+					<td clospan="2" class="title">Информация о специальности</td>
+				</tr>
+				<tr>
+					<td class="label">Наименование</td>
+					<td class="value">@item.getSpeciality().name</td>
+				</tr>
+				<tr>
+					<td class="label">Форма обучения</td>
+					<td class="value">@item.getExtramuralString()</td>
+				</tr>
+				<tr>
+					<td class="label">Специализация</td>
+					<td class="value">@item.getSpeciality().specialization</td>
+				</tr>
+				<tr>
+					<td class="label">Квалификация</td>
+					<td class="value">@item.getSpeciality().kvalification</td>
+				</tr>
+				<tr>
+					<td class="label">Нормативный срок обучения</td>
+					<td class="value">@item.getSpeciality().length</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="title">Документ на основании которого
+						было зачисление</td>
+				</tr>
+				<tr>
+					<td class="label">Наименование</td>
+					<td class="value">@item.documentName</td>
+				</tr>
+				<tr>
+					<td class="label">Дата выдачи</td>
+					<td class="value">@item.getDocumentDateString()</td>
+				</tr>
+				<tr>
+					<td class="label">Кем выдан</td>
+					<td class="value">@item.documentOrganization</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="title">Сроки и результаты обучения</td>
+				</tr>
+				<tr>
+					<td class="label">Начал(а) обучение</td>
+					<td class="value">@item.getBeginDateString()</td>
+				</tr>
+				<tr>
+					<td class="label">Закончил(а) обучение</td>
+					<td class="value">@item.getEndDateString()</td>
+				</tr>
+				<tr>
+					<td class="label">Был(а) отчислен(а)?</td>
+					<td class="value">@item.getRemandedString()</td>
+				</tr>
+				@if(item.remanded) {
+				<tr>
+					<td class="label">Причина отчисления</td>
+					<td class="value">@item.remandReason</td>
+				</tr>
+				<tr>
+					<td class="label">Номер приказа об отчислении</td>
+					<td class="value">@item.remandCommand</td>
+				</tr>
+				}
+				<tr>
+					<td class="label">Номер диплома</td>
+					<td class="value">@item.diplomeNumber</td>
+				</tr>
+				<tr>
+					<td class="label">Номер приложения к диплому</td>
+					<td class="value">@item.appendixNumber</td>
+				</tr>
+				<tr>
+					<td class="label">Регистрационный номер</td>
+					<td class="value">@item.registrationNumber</td>
+				</tr>
+				<tr>
+					<td class="label">Дата выдачи диплома</td>
+					<td class="value">@item.getDiplomeDateString()</td>
+				</tr>
+				<tr>
+					<td class="label">Тип итоговой государственной аттестации</td>
+					<td class="value">@item.getGosExamString()</td>
+				</tr>
+				@if(!item.gosExam) {
+				<tr>
+					<td class="label">Тема дипломного проекта</td>
+					<td class="value">@item.diplomeTheme</td>
+				</tr>
+				}
+				<tr>
+					<td class="label">Диплом с отличием?</td>
+					<td class="value">@item.getRedString()</td>
+				</tr>
+				<tr>
+					<td class="label">Оценка за дипломный проект</td>
+					<td class="value">@models.Utils.getMarkString(item.diplomeMark)</td>
+				</tr>
+				<tr>
+					<td class="label">ФИО председателя комиссии</td>
+					<td class="value">@item.comissionDirector</td>
+				</tr>
+				<tr>
+					<td class="label">Дата комиссии</td>
+					<td class="value">@item.getComissionDateString()</td>
+				</tr>
+				<tr>
+					<td colspan="2"><p align="center">
+					<a class="button" href="@routes.FinalMarks.index(item.getPerson().getId(), item.getId())">Итоговые оценки</a>
+					<a class="button" href="@routes.PracticMarks.index(item.getPerson().getId(), item.getId())">Практика</a>
+					<a class="button" href="@routes.CourseWorkMarks.index(item.getPerson().getId(), item.getId())">Курсовые проекты</a>
+					<a class="button" href="@routes.GosMarks.index(item.getPerson().getId(), item.getId())">Государственные экзамены</a>
+					</p></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</p>
+@buttons()
+}
+
+@buttons() = {
+<p>
+<a class="button" target="new" href="@routes.Cards.diplome(item.getPerson().getId(), item.getId())">Диплом</a>
+<a class="button" target="new" href="@routes.Cards.copy(item.getPerson().getId(), item.getId())">Копия диплома</a>
+<a class="button" href="@routes.Cards.index(item.getPerson().getId())">Закрыть</a>
+<a class="button" href="@routes.Cards.edit(item.getPerson().getId(), item.getId())">Изменить</a>
+</p>
+}

@@ -1,0 +1,61 @@
+@(itemForm: play.data.Form[models.entities.Card], person: models.entities.Person, id: Int)
+
+@import helper._
+
+@main("Личная карточка") {
+	
+	<div class="roundbox" id="breadcrumb">
+		<a href="@routes.Persons.index()">Персоны</a> &gt;
+		<a href="@routes.Persons.details(person.getId())">@person.getFullName()</a>
+	</div>
+	
+	@form(action = routes.Cards.save(person.getId(), id)) {
+		@select(itemForm("sclCode"), options(models.Utils.schools()),
+			'_label -> "Образовательное учреждение",'_showConstraints -> false)
+		@select(itemForm("spcCode"), options(models.Utils.specialities()),
+			'_label -> "Специальность",'_showConstraints -> false)
+		@select(itemForm("extramural"), options("false"->"очная", "true"->"заочная"),
+			'_label -> "Форма обучения",'_showConstraints -> false)
+		@inputDate(itemForm("beginDate"),'_label -> "Дата начала обучения",
+			'_showConstraints -> false)
+		@inputDate(itemForm("endDate"),'_label -> "Дата окончания обучения",
+			'_showConstraints -> false)
+		@inputText(itemForm("documentName"),'_label -> "Документ о предыдущем образовании",
+			'_showConstraints -> false)
+		@inputText(itemForm("documentOrganization"),'_label -> "Организация, выдавшая документ",
+			'_showConstraints -> false)
+		@inputDate(itemForm("documentDate"),'_label -> "Дата выдачи документа",
+			'_showConstraints -> false)
+		@select(itemForm("remanded"), options("false"->"нет", "true"->"да"),
+			'_label -> "Был(а) отчислен(а)?",'_showConstraints -> false)
+		@inputText(itemForm("remandReason"),'_label -> "Причина отчисления",
+			'_showConstraints -> false)
+		@inputText(itemForm("remandCommand"),'_label -> "Номер приказа об отчислении",
+			'_showConstraints -> false)
+		@inputText(itemForm("diplomeNumber"),'_label -> "Серия и номер диплома",
+			'_showConstraints -> false)
+		@inputText(itemForm("appendixNumber"),'_label -> "Серия и номер приложения",
+			'_showConstraints -> false)
+		@inputText(itemForm("registrationNumber"),'_label -> "Регистрационный номер диплома",
+			'_showConstraints -> false)
+		@inputDate(itemForm("diplomeDate"),'_label -> "Дата выдачи диплома",
+			'_showConstraints -> false)
+		@select(itemForm("red"), options("false"->"нет", "true"->"да"),
+			'_label -> "Диплом с отличием?",'_showConstraints -> false)
+		@select(itemForm("gosExam"), options("false"->"Защита дипломного проекта", "true"->"Итоговый междисциплинарный гос. экзамен"),
+			'_label -> "Вид итоговой аттестации",'_showConstraints -> false)
+		@inputText(itemForm("diplomeLength"),'_label -> "Продолжительность итоговой гос. аттестации (недель)",
+			'_showConstraints -> false)
+		@inputText(itemForm("diplomeTheme"),'_label -> "Тема дипломного проекта",
+			'_showConstraints -> false)
+		@select(itemForm("diplomeMark"), 
+			options("3"->"удовлетворительно", "4"->"хорошо", "5"->"отлично"),
+			'_label -> "Оценка за дипломный проект")
+		@inputText(itemForm("comissionDirector"),'_label -> "ФИО председателя комиссии",
+			'_showConstraints -> false)
+		@inputDate(itemForm("comissionDate"),'_label -> "Дата комиссии",
+			'_showConstraints -> false)
+		<input type="submit" class="form-submit" value="Сохранить">
+		<a class="button" href="@routes.Cards.index(person.getId())">Отмена</a>
+	}
+}

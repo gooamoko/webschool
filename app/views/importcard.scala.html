@@ -1,0 +1,12 @@
+@(itemForm: play.data.Form[models.CardImport])
+
+@import helper._
+
+@main("Импорт карточек из старой базы данных") {
+	@form(action = routes.Import.process()) {
+	@select(itemForm("pcode"), 
+		options(models.CardImport.importGroups()), '_label -> "Выберите группу для импорта")
+	<input type="submit" class="form-submit" value="Запустить">
+	<a class="button" href="@routes.Application.index()">Отмена</a>
+	}
+}

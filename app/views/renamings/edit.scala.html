@@ -1,0 +1,13 @@
+@(itemForm: play.data.Form[models.entities.Renaming], id: Int)
+
+@import helper._
+
+@main("Переименование учебного заведения") {
+	@form(action = routes.Renamings.save(id)) {
+	@inputDate(itemForm("renamingDate"),'_label -> "Дата переименования")
+	@inputText(itemForm("oldName"),'_label -> "Старое полное наименование")
+	@inputText(itemForm("newName"),'_label -> "Новое полное наименование")
+	<input type="submit" class="form-submit" value="Сохранить">
+	<a class="button" href="@routes.Renamings.index()">Отмена</a>
+	}
+}

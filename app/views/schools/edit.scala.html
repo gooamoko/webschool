@@ -1,0 +1,14 @@
+@(schoolForm: play.data.Form[models.entities.School], id: Int)
+
+@import helper._
+
+@main("Учебное заведение") {
+	@form(action = routes.Schools.save(id)) {
+	@inputText(schoolForm("name"),'_label -> "Наименование полное")
+	@inputText(schoolForm("shortName"),'_label -> "Наименование сокращенное")
+	@inputText(schoolForm("place"),'_label -> "Населенный пункт")
+	@inputText(schoolForm("director"),'_label -> "ФИО руководителя")
+	<input type="submit" class="form-submit" value="Сохранить">
+	<a class="button" href="@routes.Schools.index()">Отмена</a>
+	}
+}

@@ -1,0 +1,62 @@
+@(ac: models.entities.Account = models.entities.ClientSession.getAccount(session.get("ssid")))
+
+<div id="top-panel">
+	<div id="top-menu">
+		<table>
+			<tr>
+				<td class="m-gr"><a href="#" class="m-gr-top">Справка</a>
+					<dl class="m-gr-drop">
+						<dd>
+							<a href="@routes.Application.about()">О проекте</a>
+						</dd>
+						<dt></dt>
+					</dl>
+				</td>
+				<td class="m-gr"><a href="#" class="m-gr-top">Данные</a>
+					<dl class="m-gr-drop">
+						<dd>
+							<a href="@routes.Persons.index()">Персоны</a>
+							<a href="@routes.Schools.index()">Учебные заведения</a>
+							<a href="@routes.Renamings.index()">Переименования</a>
+							<a href="@routes.Departments.index()">Отделения</a>
+							<a href="@routes.Specialities.index()">Специальности</a>
+							<a href="@routes.Subjects.index()">Дисциплины</a>
+							<a href="@routes.Practics.index()">Практики</a>
+						</dd>
+						<dt></dt>
+					</dl>
+				</td>
+				@if((ac != null) && (ac.isAdmin())) {
+				<td class="m-gr"><a href="#" class="m-gr-top">Администрирование</a>
+					<dl class="m-gr-drop">
+						<dd>
+							<a href="@routes.Import.begin()">Импорт личных карточек</a>
+							<a href="@routes.Accounts.index()">Учетные записи пользователей</a>
+						</dd>
+						<dt></dt>
+					</dl>
+				</td>
+				}
+				@if(ac != null) {
+				<td class="m-gr"><a href="#" class="m-gr-top">@ac.login</a>
+					<dl class="m-gr-drop">
+						<dd>
+							<a href="@routes.Accounts.newPassword(ac.getId())">
+								Сменить пароль
+							</a>
+						</dd>
+						<dt></dt>
+					</dl>
+				</td>
+				}
+				<td class="m-gr">
+					@if(ac != null){
+					<a class="button" href="@routes.Application.logout()">Выход</a>
+					} else {
+					<a class="button" href="#" onClick="fetchBlock('#content', '@routes.Application.ajaxLoginForm()')">Вход</a>
+					}
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

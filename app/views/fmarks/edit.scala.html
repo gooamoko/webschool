@@ -1,0 +1,29 @@
+@(itemForm: play.data.Form[models.entities.FinalMark], card: models.entities.Card, id: Int)
+
+@import helper._
+
+@main("Итоговая оценка") {
+	
+	<div class="roundbox" id="breadcrumb">
+		<a href="@routes.Persons.index()">Персоны</a> &gt;
+		<a href="@routes.Persons.details(card.getPerson().getId())">@card.getPerson().getFullName()</a> &gt;
+		<a href="@routes.Cards.details(card.getPerson().getId(), card.getId())">@card.getTitle()</a>
+	</div>
+	
+	@form(action = routes.FinalMarks.save(card.getPerson().getId(), card.getId(), id)) {
+	@select(itemForm("moduleCode"), 
+		options(models.Utils.fmarkModules()), '_label -> "Модуль")
+	@select(itemForm("subCode"), 
+		options(models.Utils.fmarkSubjects()), '_label -> "Дисциплина")
+	@select(itemForm("isModule"), 
+		options("false"->"Нет", "true"->"Да"),
+		'_label -> "Модуль?")
+	@inputText(itemForm("auditoryLoad"), '_label -> "Аудиторная нагрузка")
+	@inputText(itemForm("maximumLoad"), '_label -> "Максимальная нагрузка")
+	@select(itemForm("mark"), 
+		options("3"->"Удовлетворительно", "4"->"Хорошо", "5"->"Отлично", "13"->"Зачтено"),
+		'_label -> "Оценка")
+	<input type="submit" class="form-submit" value="Сохранить">
+	<a class="button" href="@routes.FinalMarks.index(card.getPerson().getId(), card.getId())">Отмена</a>
+	}
+}

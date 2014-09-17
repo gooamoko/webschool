@@ -1,0 +1,17 @@
+@(personForm: play.data.Form[models.entities.Person], id: Int)
+
+@import helper._
+
+@main("Персона") {
+	@form(action = routes.Persons.save(id)) {
+	@inputText(personForm("firstName"),'_label -> "Фамилия")
+	@inputText(personForm("middleName"),'_label -> "Имя")
+	@inputText(personForm("lastName"),'_label -> "Отчество")
+	@inputDate(personForm("birthDate"),'_label -> "Дата рождения")
+	@inputText(personForm("birthPlace"),'_label -> "Место рождения")
+	@select(personForm("male"), options("true"->"Мужской", "false"->"Женский"),'_label -> "Пол")
+	@select(personForm("foreign"), options("false"->"Нет", "true"->"Да"),'_label -> "Иностранец")
+	<input type="submit" class="form-submit" value="Сохранить">
+	<a class="button" href="@routes.Persons.index()">Отмена</a>
+	}
+}

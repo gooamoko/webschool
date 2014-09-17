@@ -1,0 +1,16 @@
+@(specialityForm: play.data.Form[models.entities.Speciality], id: Int)
+
+@import helper._
+
+@main("Специальность") {
+@form(action = routes.Specialities.save(id)) {
+	@inputText(specialityForm("key"),'_label -> "Код специальности")
+	@inputText(specialityForm("name"),'_label -> "Наименование полное")
+	@inputText(specialityForm("shortName"),'_label -> "Наименование сокращенное")
+	@inputText(specialityForm("specialization"),'_label -> "Специализация")
+	@inputText(specialityForm("kvalification"),'_label -> "Квалификация")
+	@inputText(specialityForm("length"),'_label -> "Нормативный срок обучения")
+	<input type="submit" class="form-submit" value="Сохранить">
+	<a class="button" href="@routes.Specialities.index()">Отмена</a>
+	}
+}

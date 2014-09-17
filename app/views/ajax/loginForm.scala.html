@@ -1,0 +1,15 @@
+<h2>Введите логин и пароль</h2>
+<form action="@routes.Application.login()" id="loginForm" method="POST">
+	<dl>
+    <dt><label for="login">Логин</label></dt>
+    <dd><input type="text" id="login" name="login"></dd>
+	</dl>
+	<dl>
+    <dt><label for="password">Пароль</label></dt>
+    <dd><input type="password" name="password" id="password"></dd>
+	</dl>
+	<dl>
+	<input type="submit" value="Вход">
+	<a class="button" href="@routes.Application.index()">Отмена</a>
+	</dl>
+</form>
