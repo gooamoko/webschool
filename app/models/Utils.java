@@ -226,7 +226,7 @@ public class Utils {
 		try (Connection con = DB.getConnection()) {
 			PreparedStatement st = con.prepareStatement(
 					"SELECT * FROM subjects WHERE (sub_pcode IN (SELECT fmk_subcode FROM fmarks "
-							+ "WHERE (fmk_crdcode=?)))) ORDER BY sub_name;",
+							+ "WHERE (fmk_crdcode=?))) ORDER BY sub_name;",
 					ResultSet.TYPE_SCROLL_INSENSITIVE,
 					ResultSet.CONCUR_READ_ONLY);
 			st.setInt(1, c.getId());

@@ -11,7 +11,7 @@
 	</div>
 	
 	@form(action = routes.GosMarks.save(card.getPerson().getId(), card.getId(), id)) {
-	@select(itemForm("subject.id"), 
+	@select(itemForm("subCode"), 
 		options(models.Utils.gmarkSubjects(card)), '_label -> "Дисциплина")
 	@select(itemForm("mark"), 
 		options("3"->"Удовлетворительно", "4"->"Хорошо", "5"->"Отлично"),
