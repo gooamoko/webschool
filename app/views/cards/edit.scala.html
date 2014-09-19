@@ -12,7 +12,7 @@
 	@form(action = routes.Cards.save(person.getId(), id)) {
 		@select(itemForm("sclCode"), options(models.Utils.schools()),
 			'_label -> "Образовательное учреждение",'_showConstraints -> false)
-		@select(itemForm("spcCode"), options(models.Utils.specialities()),
+		@select(itemForm("spcCode"), options(models.entities.Speciality.getMap()),
 			'_label -> "Специальность",'_showConstraints -> false)
 		@select(itemForm("extramural"), options("false"->"очная", "true"->"заочная"),
 			'_label -> "Форма обучения",'_showConstraints -> false)

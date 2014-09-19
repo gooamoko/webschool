@@ -27,6 +27,8 @@ public class DepartmentProfile {
 	public int departmentCode;
 	@Constraints.Required
 	public int specialityCode;
+	public String department;
+	public String speciality;
 	
 	private void readFields(ResultSet rs) throws SQLException {
 		extramural = rs.getBoolean("dpr_extramural");
@@ -50,6 +52,17 @@ public class DepartmentProfile {
 	public int getId() {
 		return id;
 	}
+	
+	public String getForm() {
+		return (extramural)? "заочная" : "очная";
+	}
+	
+	public void updateFrom(DepartmentProfile other) {
+		this.extramural = other.extramural;
+		this.specialityCode = other.specialityCode;
+		this.departmentCode = other.departmentCode;
+		// update speciality and department
+	}
 
 	public static DepartmentProfile get(final int id) throws ModelException {
 		try(Connection con = DB.getConnection()) {
@@ -68,6 +81,26 @@ public class DepartmentProfile {
 			rs.close();
 			statement.close();
 			return item;
+		} catch (SQLException e) {
+			throw new ModelException(ERROR + READ + SQL + e.getMessage());
+		}
+	}
+
+	public static List<DepartmentProfile> fetchAll() throws ModelException {
+		try (Connection con = DB.getConnection()) {
+			List<DepartmentProfile> result = new ArrayList<>();
+			PreparedStatement statement = con.prepareStatement(
+					"SELECT * FROM departmentprofiles;", 
+					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				DepartmentProfile item = new DepartmentProfile(rs.getInt("dpr_pcode"));
+				item.readFields(rs);
+				result.add(item);
+			}
+			rs.close();
+			statement.close();
+			return result;
 		} catch (SQLException e) {
 			throw new ModelException(ERROR + READ + SQL + e.getMessage());
 		}

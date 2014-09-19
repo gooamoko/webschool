@@ -1,0 +1,18 @@
+@(itemForm: play.data.Form[models.entities.DepartmentProfile], id: Int)
+
+@import helper._
+
+@main("Профили отделений") {
+	
+	@form(action = routes.DepartmentProfiles.save(id)) {
+	@select(itemForm("departmentCode"), 
+		options(models.entities.Department.getMap()), '_label -> "Отделение")
+	@select(itemForm("specialityCode"), 
+		options(models.entities.Speciality.getMap()), '_label -> "Специальность")
+	@select(itemForm("extramural"), 
+		options("false"->"Нет", "true"->"Да"),
+		'_label -> "Заочная форма обучения?")
+	<input type="submit" class="form-submit" value="Сохранить">
+	<a class="button" href="@routes.DepartmentProfiles.index()">Отмена</a>
+	}
+}

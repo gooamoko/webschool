@@ -16,7 +16,6 @@ import java.util.Map;
 import models.entities.Card;
 import models.entities.Practic;
 import models.entities.School;
-import models.entities.Speciality;
 import play.Logger;
 import play.db.DB;
 
@@ -126,18 +125,6 @@ public class Utils {
 			prefix = " недели";
 		}
 		return String.format("%2.1f %s", length, prefix);
-	}
-
-	public static Map<String, String> specialities() {
-		LinkedHashMap<String, String> result = new LinkedHashMap<String, String>();
-		try {
-			for (Speciality s : Speciality.fetchAll()) {
-				result.put(s.getId() + "", s.getOutputName());
-			}
-		} catch (ModelException e) {
-			logError(e.getMessage());
-		}
-		return result;
 	}
 
 	public static Map<String, String> schools() {

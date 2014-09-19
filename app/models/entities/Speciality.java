@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import models.ModelException;
 import models.Utils;
@@ -94,6 +96,18 @@ public class Speciality {
 		} catch (SQLException e) {
 			throw new ModelException(ERROR + READ + SQL + e.getMessage());
 		}
+	}
+	
+	public static Map<String, String> getMap() {
+		LinkedHashMap<String, String> result = new LinkedHashMap<String, String>();
+		try {
+			for (Speciality s : fetchAll()) {
+				result.put(s.getId() + "", s.getOutputName());
+			}
+		} catch (ModelException e) {
+			Utils.logError(e.getMessage());
+		}
+		return result;
 	}
 	
 	public void save() throws ModelException {
