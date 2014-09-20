@@ -23,11 +23,13 @@ public class Group {
 	final static String NO_RECORDS = "Ни одна из записей не подверглась изменению! ";
 	final static String SQL = "SQLException: ";
 
-	public int id;
+	private int id;
 	@Constraints.Required
 	public String name;
 	@Constraints.Required
 	public int createYear;
+	@Constraints.Required
+	public int course;
 	@Constraints.Required
 	public int depCode;
 	@Constraints.Required
@@ -36,14 +38,18 @@ public class Group {
 	public String master;
 	@Constraints.Required
 	public boolean archived;
+	@Constraints.Required
+	public boolean extramural;
 
 	private void readFields(ResultSet rs) throws SQLException {
 		name = rs.getString("grp_name");
 		createYear = rs.getInt("grp_year");
+		course = rs.getInt("grp_course");
 		depCode = rs.getInt("grp_depcode");
 		spcCode = rs.getInt("grp_spccode");
 		master = rs.getString("grp_master");
 		archived = rs.getBoolean("grp_archived");
+		extramural = rs.getBoolean("grp_extramural");
 	}
 	
 	private static List<Group> makeList(PreparedStatement statement) throws SQLException {
@@ -66,6 +72,10 @@ public class Group {
 	
 	public Group(final int id) {
 		this.id = id;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 	public void setDepartment(final Department dep) {
