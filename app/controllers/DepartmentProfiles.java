@@ -7,6 +7,9 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
+import views.html.departmentprofiles.*;
+import views.html.errorPage;
+import views.html.ajax.confirmDelete;
 
 public class DepartmentProfiles extends Controller {
 
@@ -67,7 +70,7 @@ public class DepartmentProfiles extends Controller {
 		try {
 			if (isAdmin(session().get("ssid"))) {
 				final DepartmentProfile item = DepartmentProfile.get(id);
-				return ok(edit.render(itemForm.fill(item));
+				return ok(edit.render(itemForm.fill(item), id));
 			}
 			return ok(errorPage.render(ACCESS_DENIED));
 		} catch (ModelException e) {
@@ -106,10 +109,3 @@ public class DepartmentProfiles extends Controller {
 		}
 	}
 }
-
-
-
-
-
-
-

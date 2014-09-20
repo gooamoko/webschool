@@ -30,10 +30,14 @@ public class DepartmentProfile {
 	public String department;
 	public String speciality;
 	
-	private void readFields(ResultSet rs) throws SQLException {
+	private void readFields(ResultSet rs) throws SQLException, ModelException {
 		extramural = rs.getBoolean("dpr_extramural");
 		departmentCode = rs.getInt("dpr_depcode");
 		specialityCode = rs.getInt("dpr_spccode");
+		Department dep = Department.get(departmentCode);
+		department = dep.name;
+		Speciality spc = Speciality.get(specialityCode);
+		speciality = spc.getOutputName();
 	}
 	
 	public DepartmentProfile() {

@@ -3,7 +3,9 @@ name := "webschool"
 version := "0.7.0"
 
 libraryDependencies ++= Seq(
-  javaJdbc
+  javaCore,
+  javaJdbc,
+  cache
 )     
 
 play.Project.playJavaSettings
