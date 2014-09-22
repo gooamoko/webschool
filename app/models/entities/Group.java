@@ -168,12 +168,12 @@ public class Group {
 	public void save() throws ModelException {
 		try (Connection con = DB.getConnection()) {
 			PreparedStatement statement = con.prepareStatement(
-					"INSERT INTO groups(grp_name, grp_year, grp_master, grp_depcode, grp_spccode, grp_archive) "
+					"INSERT INTO groups(grp_name, grp_year, grp_master, grp_depcode, grp_spccode, grp_archived) "
 					+ "VALUES(?,?,?,?,?,?);");
 			if (id > 0) {
 				statement = con.prepareStatement(
 						"UPDATE groups SET grp_name=?, grp_year=?, grp_master=?, grp_depcode=?, grp_spccode=?, "
-						+ "grp_archive=? WHERE (grp_pcode=?);");
+						+ "grp_archived=? WHERE (grp_pcode=?);");
 				statement.setInt(7, id);
 			}
 			statement.setString(1, name);

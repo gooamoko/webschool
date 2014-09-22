@@ -1,7 +1,9 @@
 package controllers;
 
 import static models.entities.ClientSession.isAdmin;
+import static models.entities.ClientSession.isAdminOrInList;
 import models.ModelException;
+import models.Role;
 import models.entities.Department;
 import play.data.Form;
 import play.mvc.Controller;
@@ -10,6 +12,7 @@ import play.mvc.Security;
 import views.html.errorPage;
 import views.html.ajax.confirmDelete;
 import views.html.departments.edit;
+import views.html.departments.details;
 import views.html.departments.index;
 
 public class Departments extends Controller {
@@ -40,7 +43,20 @@ public class Departments extends Controller {
 	}
 
 	@Security.Authenticated(Secured.class)
-	public static Result save(int id) {
+	public static Result details(final int id) {
+		try {
+			if (isAdminOrInList(session().get("ssid"), Role.DEPARTMENT)) {
+				Department dep = Department.get(id);
+				return ok(details.render(dep));
+			}
+			return ok(errorPage.render(ACCESS_DENIED));
+		} catch (ModelException e) {
+			return ok(errorPage.render(e.getMessage()));
+		}
+	}
+	
+	@Security.Authenticated(Secured.class)
+	public static Result save(final int id) {
 		try {
 			if (isAdmin(session().get("ssid"))) {
 				Form<Department> form = itemForm.bindFromRequest();
@@ -70,7 +86,7 @@ public class Departments extends Controller {
 	}
 
 	@Security.Authenticated(Secured.class)
-	public static Result edit(int id) {
+	public static Result edit(final int id) {
 		try {
 			if (isAdmin(session().get("ssid"))) {
 				final Department item = Department.get(id);
@@ -100,7 +116,7 @@ public class Departments extends Controller {
 	}
 
 	@Security.Authenticated(Secured.class)
-	public static Result delete(int id) {
+	public static Result delete(final int id) {
 		try {
 			if (isAdmin(session().get("ssid"))) {
 			final Department item = Department.get(id);

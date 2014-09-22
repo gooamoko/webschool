@@ -17,6 +17,7 @@
 		<tr>
 			<td>@item.name</td>
 			<td>
+				<a class="action" href="@routes.Departments.details(item.getId())">Детали</a>
 				<a class="action" href="@routes.Departments.edit(item.getId())">Изменить</a>
 				<a class="action" onClick="fetchBlock('#content', '@routes.Departments.confirm(item.getId())')">Удалить</a>
 			</td>

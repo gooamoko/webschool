@@ -243,6 +243,13 @@ dd.info {
 	text-decoration: none;
 }
 
+dd.error {
+	font-size: 12px;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	color: #d95959;
+	text-decoration: none;
+}
+
 .form-submit input {
 	font-family: Verdana, Helvetica, Arial, sans-serif;
 	font-size: 100%;

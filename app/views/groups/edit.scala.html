@@ -1,19 +1,19 @@
-@(itemForm: play.data.Form[models.entities.Group], id: Int, depCode: Int)
+@(itemForm: play.data.Form[models.entities.Group], department: models.entities.Department, id: Int)
 
 @import helper._
 
 @main("Группа") {
-	@form(action = routes.Groups.save(depCode, id)) {
+	@form(action = routes.Groups.save(department.getId(), id)) {
 	@select(itemForm("spcCode"), options(models.entities.Speciality.getMap()),
 	  '_label -> "Специальность")
-	@inputDate(itemForm("name"),'_label -> "Наименование")
-	@inputDate(itemForm("master"),'_label -> "Куратор")
-	@inputDate(itemForm("year"),'_label -> "Год формирования")
+	@inputText(itemForm("name"),'_label -> "Наименование")
+	@inputText(itemForm("master"),'_label -> "Куратор")
+	@inputText(itemForm("year"),'_label -> "Год формирования")
 	@inputText(itemForm("course"),'_label -> "Курс")
 	@select(itemForm("extramural"), options("false"->"Нет", "true"->"Да"),
 		'_label -> "Заочная форма обучения?")
 	@select(itemForm("archived"), options("false"->"Нет", "true"->"Да"),
-		'_label -> "В архиве?]")
+		'_label -> "В архиве?")
 	<input type="submit" class="form-submit" value="Сохранить">
 	<a class="button" href="@routes.DepartmentProfiles.index()">Отмена</a>
 	}

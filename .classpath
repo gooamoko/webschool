@@ -1,10 +1,10 @@
 <classpath>
   <classpathentry kind="src" path="app" output=".target"/>
   <classpathentry kind="src" path="test" output=".target"/>
-  <classpathentry kind="lib" path="./lib/sqljdbc4.jar"/>
   <classpathentry kind="lib" path="./lib/postgresql-9.1-901.jdbc4.jar"/>
+  <classpathentry kind="lib" path="./lib/sqljdbc4.jar"/>
   <classpathentry kind="lib" path="./lib/itextpdf-5.5.0.jar"/>
-  <classpathentry path="/home/leonid/git/webschool/target/scala-2.10/classes_managed" kind="lib"></classpathentry>
+  <classpathentry path="/home/user/git/webschool/target/scala-2.10/classes_managed" kind="lib"></classpathentry>
   <classpathentry kind="lib" path="/opt/play/repository/local/com.typesafe.play/play-java_2.10/2.2.4/jars/play-java_2.10.jar"/>
   <classpathentry kind="lib" path="/opt/play/repository/local/com.typesafe.play/play_2.10/2.2.4/jars/play_2.10.jar"/>
   <classpathentry kind="lib" path="/opt/play/repository/local/com.typesafe.play/sbt-link/2.2.4/jars/sbt-link.jar"/>
