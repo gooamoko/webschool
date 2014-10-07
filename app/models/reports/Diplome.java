@@ -39,7 +39,7 @@ import com.itextpdf.text.pdf.PdfWriter;
  * @author Воронин Леонид
  * 
  */
-public class DIplome {
+public class Diplome {
 	// поток байт в котором будет "собираться" отчет.
 	private ByteArrayOutputStream stream;
 	private BaseFont baseFont;
@@ -245,7 +245,7 @@ public class DIplome {
 	 * 
 	 * @throws ModelException
 	 */
-	public void build(final Card card, final boolean isCopy) throws ModelException {
+	public void build(final Card card, final boolean isCopy, final boolean isDuplicate) throws ModelException {
 		try {
 			prepareFonts(10, 6);
 			Document document = new Document(PageSize.A4.rotate(), 15f, 15f,
@@ -253,13 +253,17 @@ public class DIplome {
 			PdfWriter writer = PdfWriter.getInstance(document, stream);
 			document.open();
 			document.addTitle("Диплом о среднеспециальном образовании и приложение к нему.");
-			document.addAuthor("getpdf project");
+			document.addAuthor("webschool");
 			
 			// Данные для вывода (возможно лучше тут считать всё с карточки)
 			School scl = card.getSchool();
 			Speciality spc = card.getSpeciality();
 			Person psn = card.getPerson();
 			String sclName = scl.name + "\n" + scl.place;
+			// Корректируем надпись с учетом дубликата
+			if (isDuplicate) {
+				sclName = sclName + "\n\n" + "ДУБЛИКАТ";
+			}
 			String comissionDate = "от " + Utils.getDateString(card.comissionDate) + " года";
 			String diplomeDate = Utils.getDateString(card.diplomeDate) + " года";
 			String birthDate = Utils.getDateString(psn.birthDate) + " года";
@@ -528,7 +532,7 @@ public class DIplome {
 	 * 
 	 * @throws ModelException
 	 */
-	public DIplome() throws ModelException {
+	public Diplome() throws ModelException {
 		stream = new ByteArrayOutputStream();
 	}
 

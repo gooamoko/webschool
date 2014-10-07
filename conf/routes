@@ -59,6 +59,7 @@ POST	/persons/:pid/cards/:id/save	  						    controllers.Cards.save(pid: Int, i
 GET		/persons/:pid/cards/:id/		  							controllers.Cards.details(pid: Int, id: Int)
 GET		/persons/:pid/cards/:id/diplome							    controllers.Cards.diplome(pid: Int, id: Int)
 GET		/persons/:pid/cards/:id/copy								controllers.Cards.copy(pid: Int, id: Int)
+GET		/persons/:pid/cards/:id/duplicate						    controllers.Cards.duplicate(pid: Int, id: Int)
 GET		/persons/:pid/cards/:id/edit	  						    controllers.Cards.edit(pid: Int, id: Int)
 GET		/persons/:pid/cards/:id/delete	  					        controllers.Cards.confirm(pid: Int, id: Int)
 POST	/persons/:pid/cards/:id/delete	  					        controllers.Cards.delete(pid: Int, id: Int)

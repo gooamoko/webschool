@@ -5,7 +5,7 @@ import models.ModelException;
 import models.Role;
 import models.entities.Card;
 import models.entities.Person;
-import models.reports.DIplome;
+import models.reports.Diplome;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -136,11 +136,11 @@ public class Cards extends Controller {
 	}
 
 	@Security.Authenticated(Secured.class)
-	private static Result getDiplome(final Card card, final boolean copy) {
+	private static Result getDiplome(final Card card, final boolean copy, final boolean duplicate) {
 		try {
 			if (isAdminOrInList(session().get("ssid"), Role.DEPARTMENT)) {
-				DIplome rep = new DIplome();
-				rep.build(card, copy);
+				Diplome rep = new Diplome();
+				rep.build(card, copy, duplicate);
 				if (rep.isReady()) {
 					response().setContentType("application/pdf");
 					return ok(rep.getReportContent());
@@ -159,7 +159,7 @@ public class Cards extends Controller {
 		try {
 			if (isAdminOrInList(session().get("ssid"), Role.DEPARTMENT)) {
 				final Card card = Card.get(cardId);
-				return getDiplome(card, false);
+				return getDiplome(card, false, false);
 			}
 			return ok(errorPage.render(ACCESS_DENIED));
 		} catch (ModelException e) {
@@ -168,11 +168,24 @@ public class Cards extends Controller {
 	}
 
 	@Security.Authenticated(Secured.class)
+	public static Result duplicate(int personId, int cardId) {
+		try {
+			if (isAdminOrInList(session().get("ssid"), Role.DEPARTMENT)) {
+				final Card card = Card.get(cardId);
+				return getDiplome(card, false, true);
+			}
+			return ok(errorPage.render(ACCESS_DENIED));
+		} catch (ModelException e) {
+			return ok(errorPage.render(e.getMessage()));
+		}
+	}
+	
+	@Security.Authenticated(Secured.class)
 	public static Result copy(int personId, int cardId) {
 		try {
 			if (isAdminOrInList(session().get("ssid"), Role.DEPARTMENT)) {
 				final Card card = Card.get(cardId);
-				return getDiplome(card, true);
+				return getDiplome(card, true, false);
 			}
 			return ok(errorPage.render(ACCESS_DENIED));
 		} catch (ModelException e) {
