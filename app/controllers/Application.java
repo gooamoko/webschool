@@ -17,6 +17,7 @@ public class Application extends Controller {
 
     public static Result index() {
         return ok(index.render("Добро пожаловать!"));
+        // TODO перенаправить в раздел для отделений и т.п.
     }
     
     public static Result about() {

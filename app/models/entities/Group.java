@@ -105,7 +105,7 @@ public class Group {
 			statement.setInt(1, id);
 			ResultSet rs = statement.executeQuery();
 			if (rs.first()) {
-				item = new Group(rs.getInt("dpr_pcode"));
+				item = new Group(id);
 				item.readFields(rs);
 			} else {
 				throw new ModelException(ERROR + READ + NOT_FOUND);
