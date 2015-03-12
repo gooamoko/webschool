@@ -15,7 +15,7 @@
 		options(models.Utils.practics()), '_label -> "Практика")
 	@inputText(itemForm("length"), '_label -> "Срок, недель")
 	@select(itemForm("mark"), 
-		options("3"->"Удовлетворительно", "4"->"Хорошо", "5"->"Отлично"),
+		options("3"->"Удовлетворительно", "4"->"Хорошо", "5"->"Отлично", "13"->"Зачтено"),
 		'_label -> "Оценка")
 	<input type="submit" class="form-submit" value="Сохранить">
 	<a class="button" href="@routes.PracticMarks.index(card.getPerson().getId(), card.getId())">Отмена</a>
